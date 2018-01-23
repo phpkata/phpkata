@@ -1,0 +1,12 @@
+---
+- hosts: all
+  vars_files:
+    - vm/vars.yml
+    - server/vars.yml
+    - mysql/vars.yml
+    - php/vars.yml
+  roles:
+    - vm
+    - server
+    - mysql
+    - php

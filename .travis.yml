@@ -1,0 +1,14 @@
+language: php
+
+php:
+  - 7.0
+  - 7.1
+  - 7.2
+
+before_script:
+    - composer install --dev
+
+script:
+    - bin/phpunit --verbose
+    - php phpkata
+    - php phpkata hello-world

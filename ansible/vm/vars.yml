@@ -1,0 +1,10 @@
+---
+vm:
+  # User to use in the vm
+  username: vagrant
+
+  git:
+    # Git user.name config
+    name: Yannick Voyer
+    # Git user.email config
+    email: yan.voyer@gmail.com

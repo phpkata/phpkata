@@ -1,0 +1,37 @@
+{
+    "name": "phpkata/phpkata",
+    "description": "PHP kata framework",
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yannick Voyer",
+            "email": "star.yvoyer@gmail.com"
+        }
+    ],
+    "require": {
+        "behat/transliterator": "~1.0",
+        "doctrine/inflector": "~1.2",
+        "php": "~7.0",
+        "symfony/console": "~3.0",
+        "symfony/event-dispatcher": "~3.4",
+        "webmozart/assert": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~6.0",
+        "mikey179/vfsStream": "~1.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Star\\PHPKata\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Star\\PHPKata\\": "tests"
+        }
+    },
+    "config": {
+        "bin-dir": "bin"
+    }
+}
