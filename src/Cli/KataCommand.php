@@ -4,8 +4,8 @@ namespace Star\PHPKata\Cli;
 
 use Behat\Transliterator\Transliterator;
 use Doctrine\Common\Inflector\Inflector;
-use Star\PHPKata\Core\Kata;
-use Star\PHPKata\Core\KataRunner;
+use Star\PHPKata\Core\Model\Kata;
+use Star\PHPKata\Core\Model\KataRunner;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -37,7 +37,7 @@ final class KataCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        return $this->runner->run($this->kata, new ConsoleContext($input, $output));
+        return $this->runner->run($this->kata, new ConsolePrinting($output));
     }
 
     /**

@@ -2,10 +2,11 @@
 
 namespace Star\PHPKata\Cli;
 
-use Star\PHPKata\Core\FileNotFoundException;
-use Star\PHPKata\Core\Kata;
-use Star\PHPKata\Core\KataRunner;
-use Star\PHPKata\Katas\HelloWorldKata;
+use Star\PHPKata\Core\Katas\HelloWorldKata;
+use Star\PHPKata\Core\Model\ApplicationRunner;
+use Star\PHPKata\Core\Model\ExecutionEnvironment;
+use Star\PHPKata\Core\Model\Kata;
+use Star\PHPKata\Core\Model\KataRunner;
 use Symfony\Component\Console\Application;
 
 final class KataApplication extends Application
@@ -18,14 +19,13 @@ final class KataApplication extends Application
     private $runner;
 
     /**
-     * @param string $dataSrc
-     * @throws FileNotFoundException
+     * @param ExecutionEnvironment $environment
      */
-    public function __construct(string $dataSrc)
+    public function __construct(ExecutionEnvironment $environment)
     {
         parent::__construct('phpkata', self::VERSION);
 
-        $this->runner = new KataRunner($dataSrc);
+        $this->runner = new ApplicationRunner(self::VERSION, $environment);
         $this->addKatas(
             [
                 new HelloWorldKata(),

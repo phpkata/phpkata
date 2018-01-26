@@ -7,15 +7,15 @@ Vagrant.configure("2") do |config|
   config.vm.network "private_network", ip: "192.168.100.50"
   config.vm.synced_folder "./", "/vagrant", :nfs => true,
     :linux__nfs_options => ['rw','no_subtree_check','no_root_squash','async']
-  config.vm.hostname = "backlog.dev"
+  config.vm.hostname = "phpkata.dev"
 
   config.ssh.forward_agent = true
 
   config.vm.provider :virtualbox do |v|
-    v.name = "backlog.dev"
+    v.name = "phpkata.dev"
     v.customize [
       "modifyvm", :id,
-      "--name", "backlog.dev",
+      "--name", "phpkata.dev",
       "--memory", 2048,
       "--natdnshostresolver1", "on",
       "--cpus", 1,
