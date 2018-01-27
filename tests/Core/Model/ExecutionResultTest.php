@@ -30,7 +30,7 @@ final class ExecutionResultTest extends TestCase
         $buffer = new BufferedPrinting();
         $this->assertSame('', $buffer->getDisplay());
 
-        $step = new StubStep('My description', false);
+        $step = new StubExpectation('My description', false);
         $this->result->addError($step);
         $this->result->acceptResultVisitor($buffer);
 
@@ -42,7 +42,7 @@ final class ExecutionResultTest extends TestCase
         $buffer = new BufferedPrinting();
         $this->assertSame('', $buffer->getDisplay());
 
-        $step = new StubStep('My description', true);
+        $step = new StubExpectation('My description', true);
         $this->result->addSuccess($step);
         $this->result->acceptResultVisitor($buffer);
 
@@ -56,12 +56,12 @@ final class ExecutionResultTest extends TestCase
 
     public function test_it_should_pass_when_errors_are_found()
     {
-        $this->result->addError(new StubStep('', false));
+        $this->result->addError(new StubExpectation('', false));
         $this->assertFalse($this->result->isPass());
     }
 }
 
-final class StubStep implements Step {
+final class StubExpectation implements Expectation {
     /**
      * @var string
      */
@@ -85,7 +85,7 @@ final class StubStep implements Step {
     /**
      * @return string
      */
-    public function toString(): string
+    public function getMessage(): string
     {
         return $this->description;
     }

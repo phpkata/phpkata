@@ -3,10 +3,9 @@
 namespace Star\PHPKata\Core\Expectation;
 
 use Star\PHPKata\Core\Model\ExpectedValue;
-use Star\PHPKata\Core\Model\KataNamespace;
-use Star\PHPKata\Core\Model\Step;
+use Star\PHPKata\Core\Model\Expectation;
 
-final class ClosureReturns implements Step
+final class ClosureReturns implements Expectation
 {
     /**
      * @var string
@@ -19,36 +18,26 @@ final class ClosureReturns implements Step
     private $expected;
 
     /**
-     * @var KataNamespace
-     */
-    private $namespace;
-
-    /**
      * @var \Closure
      */
     private $closure;
 
-    public function __construct(
-        string $message,
-        ExpectedValue $expected,
-        KataNamespace $namespace,
-        \Closure $closure
-    ) {
+    public function __construct(ExpectedValue $expected, \Closure $closure, string $message)
+    {
         $this->message = $message;
         $this->expected = $expected;
-        $this->namespace = $namespace;
         $this->closure = $closure;
     }
 
-    public function toString(): string
+    public function getMessage(): string
     {
-        return $this->message . " returns the expected value '{$this->expected}'.";
+        return $this->message;
     }
 
     public function isCompleted(): bool
     {
         $closure = $this->closure;
 
-        return $this->expected->isSame($closure($this->namespace));
+        return $this->expected->isSame($closure());
     }
 }

@@ -6,7 +6,7 @@ use Star\PHPKata\Core\Model\ExecutionResult;
 use Star\PHPKata\Core\Model\KataDetail;
 use Star\PHPKata\Core\Model\Message;
 use Star\PHPKata\Core\Model\Printer;
-use Star\PHPKata\Core\Model\Step;
+use Star\PHPKata\Core\Model\Expectation;
 
 final class VarDumpPrint implements Printer
 {
@@ -30,13 +30,13 @@ final class VarDumpPrint implements Printer
         var_dump($result);
     }
 
-    public function visitSuccess(Step $step)
+    public function visitSuccess(Expectation $expectation)
     {
-        var_dump($step);
+        var_dump($expectation);
     }
 
-    public function visitFailure(Step $step)
+    public function visitFailure(Expectation $expectation)
     {
-        var_dump($step);
+        var_dump($expectation);
     }
 }

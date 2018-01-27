@@ -2,21 +2,22 @@
 
 namespace Star\PHPKata\Core\Expectation;
 
+use Star\PHPKata\Core\Definitions\FunctionDefinition;
+use Star\PHPKata\Core\Execution\ExecutionRuntime;
 use Star\PHPKata\Core\Input\StringValue;
-use Star\PHPKata\Core\Model\ExecutionEnvironment;
-use Star\PHPKata\Core\Model\Step;
+use Star\PHPKata\Core\Model\Expectation;
 
 final class FunctionAssertion
 {
     /**
-     * @var ExecutionEnvironment
+     * @var FunctionDefinition
      */
-    private $environment;
+    private $definition;
 
     /**
-     * @var string
+     * @var ExecutionRuntime
      */
-    private $name;
+    private $runtime;
 
     /**
      * @var AssertionBuilder
@@ -24,40 +25,31 @@ final class FunctionAssertion
     private $builder;
 
     /**
-     * @param ExecutionEnvironment $environment
-     * @param string $name
+     * @param FunctionDefinition $definition
+     * @param ExecutionRuntime $runtime
      * @param AssertionBuilder $builder
      */
-    public function __construct(ExecutionEnvironment $environment, $name, AssertionBuilder $builder)
+    public function __construct(FunctionDefinition $definition, ExecutionRuntime $runtime, AssertionBuilder $builder)
     {
-        $this->environment = $environment;
-        $this->name = $name;
+        $this->definition = $definition;
+        $this->runtime = $runtime;
         $this->builder = $builder;
     }
 
-    public function exists()
-    {
-        $this->will(new FunctionExists($this->name, $this->environment->getNamespace()));
-    }
-
-    public function returnString(string $string, \Closure $closure)
+    public function returnString(string $expected)
     {
         $this->will(
             new ClosureReturns(
-                "The function named '{$this->name}'",
-                new StringValue($string),
-                $this->environment->getNamespace(),
-                $closure
+                new StringValue($expected),
+                function () {
+                    return $this->runtime->runFunction($this->definition);
+                },
+                "The function named '{$this->definition->getName()}' returns the expected value '{$expected}'."
             )
         );
     }
 
-    public function acceptArguments()
-    {
-        // todo funct get args
-    }
-
-    public function will(Step $expectation)
+    public function will(Expectation $expectation)
     {
         $this->builder->will($expectation);
     }

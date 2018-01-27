@@ -2,16 +2,22 @@
 
 namespace Star\PHPKata\Core\Input;
 
+use Star\PHPKata\Core\Model\ActualValue;
 use Star\PHPKata\Core\Model\ExpectedValue;
 
-final class EmptyValue implements ExpectedValue
+final class EmptyValue implements ExpectedValue, ActualValue
 {
-    public function isSame($value): bool
+    public function isSame(ActualValue $value): bool
     {
-        return is_null($value);
+        return empty($value->toString());
     }
 
     public function __toString(): string
+    {
+        return '';
+    }
+
+    public function toString(): string
     {
         return '';
     }

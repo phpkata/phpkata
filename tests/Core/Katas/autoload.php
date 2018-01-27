@@ -9,7 +9,7 @@ final class TestCaseRunner
      *
      * @return int
      */
-    public static function run(string $file, string $code = '')
+    public static function run(string $file, string $code = ''): int
     {
         $info = pathinfo($file);
         $kataFolder = str_replace(
@@ -35,6 +35,21 @@ final class TestCaseRunner
         $app = new \Star\PHPKata\Cli\KataApplication($env);
 
         return $app->run();
+    }
 
+    /**
+     * @param string $code
+     *
+     * @return int
+     */
+    public static function evaluate(string $code): int
+    {
+        $env = new \Star\PHPKata\Core\Execution\InMemoryEnvironment(
+            new \Star\PHPKata\Core\Execution\RandomNamespace(),
+            $code
+        );
+        $app = new \Star\PHPKata\Cli\KataApplication($env);
+
+        return $app->run();
     }
 }

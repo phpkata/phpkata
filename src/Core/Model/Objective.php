@@ -12,15 +12,15 @@ final class Objective
     private $hint;
 
     /**
-     * @var Step[]
+     * @var Expectation[]
      */
-    private $steps;
+    private $expectations;
 
-    public function __construct(string $hint, array $steps)
+    public function __construct(string $hint, array $expectations)
     {
-        Assert::allIsInstanceOf($steps, Step::class);
+        Assert::allIsInstanceOf($expectations, Expectation::class);
         $this->hint = $hint;
-        $this->steps = $steps;
+        $this->expectations = $expectations;
     }
 
     /**
@@ -29,11 +29,11 @@ final class Objective
     public function run(): ExecutionResult
     {
         $result = new ExecutionResult();
-        foreach ($this->steps as $step) {
-            if ($step->isCompleted()) {
-                $result->addSuccess($step);
+        foreach ($this->expectations as $expectation) {
+            if ($expectation->isCompleted()) {
+                $result->addSuccess($expectation);
             } else {
-                $result->addError($step);
+                $result->addError($expectation);
                 break;
             }
         }

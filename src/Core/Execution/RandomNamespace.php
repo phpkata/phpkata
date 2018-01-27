@@ -4,25 +4,25 @@ namespace Star\PHPKata\Core\Execution;
 
 use Star\PHPKata\Core\Model\KataNamespace;
 
-final class StringNamespace implements KataNamespace
+final class RandomNamespace implements KataNamespace
 {
     /**
-     * @var string
+     * @var KataNamespace
      */
     private $namespace;
 
-    public function __construct(string $namespace)
+    public function __construct()
     {
-        $this->namespace = $namespace;
+        $this->namespace = new StringNamespace(uniqid('Random'));
     }
 
     public function pathOf(string $resource): string
     {
-        return $this->namespace . '\\' . $resource;
+        return $this->namespace->pathOf($resource);
     }
 
     public function toString(): string
     {
-        return $this->namespace;
+        return $this->namespace->toString();
     }
 }

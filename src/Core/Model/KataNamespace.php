@@ -12,4 +12,11 @@ interface KataNamespace
      * @return string
      */
     public function pathOf(string $resource): string;
+
+    /**
+     * Return the path definition for the namespace.
+     *
+     * @return string
+     */
+    public function toString(): string;
 }

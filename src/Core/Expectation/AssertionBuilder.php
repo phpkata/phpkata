@@ -2,9 +2,13 @@
 
 namespace Star\PHPKata\Core\Expectation;
 
+use Star\PHPKata\Core\Definitions\ClassDefinition;
+use Star\PHPKata\Core\Definitions\FunctionDefinition;
+use Star\PHPKata\Core\Execution\PHP\PHPExecutionRuntime;
+use Star\PHPKata\Core\Execution\ExecutionRuntime;
 use Star\PHPKata\Core\Model\ExecutionEnvironment;
 use Star\PHPKata\Core\Model\Objective;
-use Star\PHPKata\Core\Model\Step;
+use Star\PHPKata\Core\Model\Expectation;
 
 final class AssertionBuilder
 {
@@ -14,7 +18,12 @@ final class AssertionBuilder
     private $environment;
 
     /**
-     * @var Step[]
+     * @var ExecutionRuntime
+     */
+    private $runtime;
+
+    /**
+     * @var Expectation[]
      */
     private $list = [];
 
@@ -24,12 +33,13 @@ final class AssertionBuilder
     public function __construct(ExecutionEnvironment $environment)
     {
         $this->environment = $environment;
+        $this->runtime = new PHPExecutionRuntime();
     }
 
     /**
-     * @param Step $expectation
+     * @param Expectation $expectation
      */
-    public function will(Step $expectation)
+    public function will(Expectation $expectation)
     {
         $this->list[] = $expectation;
     }
@@ -41,7 +51,29 @@ final class AssertionBuilder
      */
     public function functionWill(string $functionName): FunctionAssertion
     {
-        return new FunctionAssertion($this->environment, $functionName, $this);
+        $this->will(new FunctionExists($functionName, $this->environment->getNamespace()));
+
+        return new FunctionAssertion(
+            new FunctionDefinition($this->environment->getNamespace(), $functionName),
+            $this->runtime,
+            $this
+        );
+    }
+
+    /**
+     * @param string $className
+     *
+     * @return ClassAssertion
+     */
+    public function classWill(string $className): ClassAssertion
+    {
+        $this->will(new ClassExists($className, $this->environment->getNamespace()));
+
+        return new ClassAssertion(
+            new ClassDefinition($this->environment->getNamespace(), $className),
+            $this->runtime,
+            $this
+        );
     }
 
     /**

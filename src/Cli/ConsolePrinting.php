@@ -6,7 +6,7 @@ use Star\PHPKata\Core\Model\ExecutionResult;
 use Star\PHPKata\Core\Model\KataDetail;
 use Star\PHPKata\Core\Model\Message;
 use Star\PHPKata\Core\Model\Printer;
-use Star\PHPKata\Core\Model\Step;
+use Star\PHPKata\Core\Model\Expectation;
 use Symfony\Component\Console\Output\OutputInterface;
 
 final class ConsolePrinting implements Printer
@@ -49,13 +49,13 @@ final class ConsolePrinting implements Printer
         $this->output->writeln('Objectives:');
     }
 
-    public function visitSuccess(Step $step)
+    public function visitSuccess(Expectation $expectation)
     {
-        $this->output->writeln('[X] ' . $step->toString());
+        $this->output->writeln('[X] ' . $expectation->getMessage());
     }
 
-    public function visitFailure(Step $step)
+    public function visitFailure(Expectation $expectation)
     {
-        $this->output->writeln('[ ] ' . $step->toString());
+        $this->output->writeln('[ ] ' . $expectation->getMessage());
     }
 }

@@ -2,12 +2,12 @@
 
 namespace Star\PHPKata\Core\Model;
 
-interface Step // todo rename to Expectation
+interface Expectation
 {
     /**
      * @return string
      */
-    public function toString(): string;
+    public function getMessage(): string;
 
     /**
      * @return bool

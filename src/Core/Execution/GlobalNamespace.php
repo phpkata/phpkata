@@ -8,6 +8,11 @@ final class GlobalNamespace implements KataNamespace
 {
     public function pathOf(string $resource): string
     {
-        return $resource;
+        return '\\' . $resource;
+    }
+
+    public function toString(): string
+    {
+        return '';
     }
 }

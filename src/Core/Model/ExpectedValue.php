@@ -7,11 +7,11 @@ interface ExpectedValue
     /**
      * Whether the $value is strict equal (===)
      *
-     * @param mixed $value
+     * @param ActualValue $value
      *
      * @return bool
      */
-    public function isSame($value): bool;
+    public function isSame(ActualValue $value): bool;
 
     /**
      * The string representation of the value

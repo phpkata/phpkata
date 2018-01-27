@@ -6,7 +6,7 @@ use Star\PHPKata\Core\Model\ExecutionResult;
 use Star\PHPKata\Core\Model\KataDetail;
 use Star\PHPKata\Core\Model\Message;
 use Star\PHPKata\Core\Model\Printer;
-use Star\PHPKata\Core\Model\Step;
+use Star\PHPKata\Core\Model\Expectation;
 
 final class BufferedPrinting implements Printer
 {
@@ -34,14 +34,14 @@ final class BufferedPrinting implements Printer
     {
     }
 
-    public function visitSuccess(Step $step)
+    public function visitSuccess(Expectation $expectation)
     {
-        $this->display .= $step->toString();
+        $this->display .= $expectation->getMessage();
     }
 
-    public function visitFailure(Step $step)
+    public function visitFailure(Expectation $expectation)
     {
-        $this->display .= $step->toString();
+        $this->display .= $expectation->getMessage();
     }
 
     public function getDisplay(): string

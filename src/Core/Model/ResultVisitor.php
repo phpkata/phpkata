@@ -10,12 +10,12 @@ interface ResultVisitor
     public function visitResult(ExecutionResult $result);
 
     /**
-     * @param Step $step
+     * @param Expectation $expectation
      */
-    public function visitSuccess(Step $step);
+    public function visitSuccess(Expectation $expectation);
 
     /**
-     * @param Step $step
+     * @param Expectation $expectation
      */
-    public function visitFailure(Step $step);
+    public function visitFailure(Expectation $expectation);
 }

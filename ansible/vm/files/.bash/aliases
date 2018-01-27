@@ -1,2 +1,3 @@
+alias xphp="PHP_IDE_CONFIG=\"serverName=phpkata\" XDEBUG_CONFIG=\"idekey=phpkata\" php"
 alias xphpunit="xphp bin/phpunit"
 alias xbehat="xphp bin/behat"

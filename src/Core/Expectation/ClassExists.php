@@ -2,10 +2,10 @@
 
 namespace Star\PHPKata\Core\Expectation;
 
-use Star\PHPKata\Core\Model\KataNamespace;
 use Star\PHPKata\Core\Model\Expectation;
+use Star\PHPKata\Core\Model\KataNamespace;
 
-final class FunctionExists implements Expectation
+final class ClassExists implements Expectation
 {
     /**
      * @var string
@@ -17,19 +17,29 @@ final class FunctionExists implements Expectation
      */
     private $namespace;
 
+    /**
+     * @param string $name
+     * @param KataNamespace $namespace
+     */
     public function __construct(string $name, KataNamespace $namespace)
     {
         $this->name = $name;
         $this->namespace = $namespace;
     }
 
+    /**
+     * @return string
+     */
     public function getMessage(): string
     {
-        return "The function named '{$this->name}' exists.";
+        return "The class named '{$this->name}' exists.";
     }
 
+    /**
+     * @return bool
+     */
     public function isCompleted(): bool
     {
-        return function_exists($this->namespace->pathOf($this->name));
+        return class_exists($this->namespace->pathOf($this->name));
     }
 }

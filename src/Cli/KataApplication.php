@@ -2,6 +2,7 @@
 
 namespace Star\PHPKata\Cli;
 
+use Star\PHPKata\Core\Katas\FibonacciSequenceKata;
 use Star\PHPKata\Core\Katas\HelloWorldKata;
 use Star\PHPKata\Core\Model\ApplicationRunner;
 use Star\PHPKata\Core\Model\ExecutionEnvironment;
@@ -29,6 +30,7 @@ final class KataApplication extends Application
         $this->addKatas(
             [
                 new HelloWorldKata(),
+                new FibonacciSequenceKata(),
             ]
         );
     }

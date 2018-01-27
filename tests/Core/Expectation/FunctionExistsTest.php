@@ -32,7 +32,7 @@ final class FunctionExistsTest extends TestCase
             'fct',
             new StringNamespace(__NAMESPACE__)
         );
-        $this->assertSame("The function named 'fct' exists.", $object->toString());
+        $this->assertSame("The function named 'fct' exists.", $object->getMessage());
     }
 
     public function test_it_should_be_completed_if_global_function_exists()

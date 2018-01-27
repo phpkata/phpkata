@@ -24,7 +24,8 @@ Options:
   -v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
 
 Available commands:
-  hello-world  Write a function that returns the "Hello world" words.
-  help         Displays help for a command
-  list         Lists commands
+  fibonacci-sequence  Write a method that returns the sum the two preceding numbers.
+  hello-world         Write a function that returns the "Hello world" words.
+  help                Displays help for a command
+  list                Lists commands
 

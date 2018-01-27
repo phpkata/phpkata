@@ -2,9 +2,10 @@
 
 namespace Star\PHPKata\Core\Input;
 
+use Star\PHPKata\Core\Model\ActualValue;
 use Star\PHPKata\Core\Model\ExpectedValue;
 
-final class IntegerValue implements ExpectedValue
+final class IntegerValue implements ExpectedValue, ActualValue
 {
     /**
      * @var int
@@ -16,13 +17,18 @@ final class IntegerValue implements ExpectedValue
         $this->int = $int;
     }
 
-    public function isSame($value): bool
+    public function isSame(ActualValue $value): bool
     {
-        return $this->int === $value;
+        return $this->toString() === $value->toString();
     }
 
     public function __toString(): string
     {
         return strval($this->int);
+    }
+
+    public function toString(): string
+    {
+        return $this->__toString();
     }
 }

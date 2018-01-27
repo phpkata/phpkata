@@ -5,28 +5,48 @@ namespace Star\PHPKata\Core\Model;
 final class ExecutionResult
 {
     /**
-     * @var Step[]
+     * @var Expectation[]
      */
     private $errors = [];
 
     /**
-     * @var Step[]
+     * @var Expectation[]
      */
     private $successes = [];
 
-    public function addError(Step $step)
+    public function addError(Expectation $expectation)
     {
-        $this->errors[] = $step;
+        $this->errors[] = $expectation;
     }
 
-    public function addSuccess(Step $step)
+    public function addSuccess(Expectation $expectation)
     {
-        $this->successes[] = $step;
+        $this->successes[] = $expectation;
     }
 
     public function isPass(): bool
     {
         return count($this->errors) === 0;
+    }
+
+    public function getErrors(): array
+    {
+        return array_map(
+            function (Expectation $expectation) {
+                return $expectation->getMessage();
+            },
+            $this->errors
+        );
+    }
+
+    public function getSuccesses(): array
+    {
+        return array_map(
+            function (Expectation $expectation) {
+                return $expectation->getMessage();
+            },
+            $this->successes
+        );
     }
 
     public function acceptResultVisitor(ResultVisitor $visitor) {

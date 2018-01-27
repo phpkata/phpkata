@@ -6,7 +6,7 @@ use Star\PHPKata\Core\Model\ExecutionResult;
 use Star\PHPKata\Core\Model\KataDetail;
 use Star\PHPKata\Core\Model\Message;
 use Star\PHPKata\Core\Model\Printer;
-use Star\PHPKata\Core\Model\Step;
+use Star\PHPKata\Core\Model\Expectation;
 
 final class NullPrinter implements Printer
 {
@@ -30,12 +30,12 @@ final class NullPrinter implements Printer
         // do nothing
     }
 
-    public function visitSuccess(Step $step)
+    public function visitSuccess(Expectation $expectation)
     {
         // do nothing
     }
 
-    public function visitFailure(Step $step)
+    public function visitFailure(Expectation $expectation)
     {
         // do nothing
     }
