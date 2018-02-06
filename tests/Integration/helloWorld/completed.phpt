@@ -2,11 +2,14 @@
 Function do return the expected string, Kata completed.
 --FILE--
 <?php
-$_SERVER['argv'][1] = 'hello-world';
 
 require_once __DIR__ . '/../autoload.php';
 
-TestCaseRunner::run(__FILE__, 'function helloWorld() { return "Hello world"; }');
+$_SERVER['argv'][0] = 'phpkata';
+$_SERVER['argv'][1] = 'hello-world';
+
+$app = new \Star\PHPKata\Cli\KataApplication(__DIR__);
+$app->run();
 
 ?>
 --EXPECTF--

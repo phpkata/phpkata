@@ -4,6 +4,7 @@ namespace Star\PHPKata\Core\Filesystem;
 
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
+use Star\PHPKata\Core\Execution\StringNamespace;
 
 /**
  * @runTestsInSeparateProcesses
@@ -16,7 +17,7 @@ final class FilesystemEnvironmentTest extends TestCase
      */
     public function test_it_should_throw_exception_when_base_path_not_found()
     {
-        new FilesystemEnvironment('not-found', 'namespace');
+        new FilesystemEnvironment('not-found', new StringNamespace('namespace'));
     }
 
     /**
@@ -28,7 +29,7 @@ final class FilesystemEnvironmentTest extends TestCase
         $root = vfsStream::setup();
         $this->assertFalse($root->hasChild('main.php'));
 
-        $runner = new FilesystemEnvironment($root->url(), 'main');
+        $runner = new FilesystemEnvironment($root->url(), new StringNamespace('main'));
         $runner->load();
 
         $this->assertTrue($root->hasChild('main.php'));
@@ -51,7 +52,7 @@ final class FilesystemEnvironmentTest extends TestCase
         $root = vfsStream::setup('root', null, ['main.php' => '<?php //data']);
         $this->assertTrue($root->hasChild('main.php'));
 
-        $runner = new FilesystemEnvironment($root->url(), 'main');
+        $runner = new FilesystemEnvironment($root->url(), new StringNamespace('main'));
         $runner->load();
 
         $this->assertTrue($root->hasChild('main.php'));
@@ -63,8 +64,12 @@ final class FilesystemEnvironmentTest extends TestCase
     {
         $root = vfsStream::setup();
 
-        $runnerOne = new FilesystemEnvironment($root->url(), 'main1', 'function methodOne() {}');
-        $runnerTwo = new FilesystemEnvironment($root->url(), 'main2', 'function methodOne() {}');
+        $runnerOne = new FilesystemEnvironment(
+            $root->url(), new StringNamespace('main1'), 'function methodOne() {}'
+        );
+        $runnerTwo = new FilesystemEnvironment(
+            $root->url(), new StringNamespace('main2'), 'function methodOne() {}'
+        );
 
         $runnerOne->load();
         $runnerTwo->load();

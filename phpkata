@@ -2,10 +2,5 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
 
-$runner = new \Star\PHPKata\Cli\KataApplication(
-        new \Star\PHPKata\Core\Filesystem\FilesystemEnvironment(
-                __DIR__ . DIRECTORY_SEPARATOR . 'data',
-                'main'
-        )
-);
+$runner = new \Star\PHPKata\Cli\KataApplication(__DIR__, true);
 $runner->run();

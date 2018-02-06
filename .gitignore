@@ -6,3 +6,4 @@
 /bin/*
 /.vagrant
 /composer.lock
+/phpkata.yml

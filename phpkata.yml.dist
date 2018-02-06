@@ -1,0 +1,7 @@
+default:
+    # This is the base folder where the src will be put
+    # src_dir: data
+
+    # Inject your custom Kata here. Classes must implement Kata interface.
+    # classes:
+    #    - Path\To\Kata\Class
