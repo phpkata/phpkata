@@ -11,7 +11,7 @@ To install the application:
 * Install using [Composer](https://getcomposer.org/) `composer install`
 
 Running unit tests: `bin/phpunit --testsuite unit`
-Running integration tests: `bin/phpunit --testsuite funcitonal`
+Running integration tests: `bin/phpunit --testsuite functional`
 
 ## Running a Kata
 
