@@ -97,4 +97,12 @@ final class StubExpectation implements Expectation {
     {
         return $this->completed;
     }
+
+    /**
+     * @param ResultBuilder $builder
+     */
+    public function evaluate(ResultBuilder $builder)
+    {
+        throw new \RuntimeException('Method ' . __METHOD__ . ' not implemented yet.');
+    }
 }

@@ -28,16 +28,17 @@ final class Objective
      */
     public function run(): ExecutionResult
     {
-        $result = new ExecutionResult();
+        $result = new ResultBuilder();
         foreach ($this->expectations as $expectation) {
-            if ($expectation->isCompleted()) {
-                $result->addSuccess($expectation);
-            } else {
-                $result->addError($expectation);
-                break;
-            }
+            $expectation->evaluate($result);
+//            if ($expectation->isCompleted()) {
+  //              $result->addSuccess($expectation);
+    //        } else {
+      //          $result->addError($expectation);
+        //        break;
+          //  }
         }
 
-        return $result;
+        return $result->buildResult();
     }
 }

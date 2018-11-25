@@ -2,6 +2,8 @@
 
 namespace Star\PHPKata\Core\Model;
 
+use Webmozart\Assert\Assert;
+
 final class ExecutionResult
 {
     /**
@@ -13,6 +15,16 @@ final class ExecutionResult
      * @var Expectation[]
      */
     private $successes = [];
+
+    /**
+     * @var Message[]
+     */
+    private $errorMessages = [];
+
+    /**
+     * @var Message[]
+     */
+    private $successMessages = [];
 
     public function addError(Expectation $expectation)
     {
@@ -58,5 +70,24 @@ final class ExecutionResult
         foreach ($this->errors as $error) {
             $visitor->visitFailure($error);
         }
+    }
+
+    /**
+     * @param array $successes
+     * @param array $failures
+     *
+     * @return ExecutionResult
+     *
+     * @deprecated Replace with construct
+     */
+    public static function replaceWithConstruct(array $successes, array $failures)
+    {
+        $result = new self();
+        Assert::allIsInstanceOf($successes, Message::class);
+        Assert::allIsInstanceOf($failures, Message::class);
+        $result->successMessages = $successes;
+        $result->errorMessages = $failures;
+
+        return $result;
     }
 }

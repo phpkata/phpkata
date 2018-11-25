@@ -2,8 +2,10 @@
 
 namespace Star\PHPKata\Core\Expectation;
 
+use Star\PHPKata\Core\Input\BooleanMatcher;
 use Star\PHPKata\Core\Model\Expectation;
 use Star\PHPKata\Core\Model\KataNamespace;
+use Star\PHPKata\Core\Model\ResultBuilder;
 
 final class ClassExists implements Expectation
 {
@@ -41,5 +43,19 @@ final class ClassExists implements Expectation
     public function isCompleted(): bool
     {
         return class_exists($this->namespace->pathOf($this->name));
+    }
+
+    /**
+     * @param ResultBuilder $builder
+     */
+    public function evaluate(ResultBuilder $builder)
+    {
+        $builder->addMatcher(
+            new BooleanMatcher(
+                true,
+                $this->isCompleted(),
+                $this->getMessage()
+            )
+        );
     }
 }

@@ -13,4 +13,9 @@ interface Expectation
      * @return bool
      */
     public function isCompleted(): bool;
+
+    /**
+     * @param ResultBuilder $builder
+     */
+    public function evaluate(ResultBuilder $builder);
 }

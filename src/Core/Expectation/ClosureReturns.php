@@ -2,8 +2,11 @@
 
 namespace Star\PHPKata\Core\Expectation;
 
+use Star\PHPKata\Core\Input\Same;
 use Star\PHPKata\Core\Model\ExpectedValue;
 use Star\PHPKata\Core\Model\Expectation;
+use Star\PHPKata\Core\Model\ResultBuilder;
+use Star\PHPKata\Core\Model\StringMessage;
 
 final class ClosureReturns implements Expectation
 {
@@ -39,5 +42,18 @@ final class ClosureReturns implements Expectation
         $closure = $this->closure;
 
         return $this->expected->isSame($closure());
+    }
+
+    public function evaluate(ResultBuilder $builder)
+    {
+        $closure = $this->closure;
+
+        $builder->addMatcher(
+            new Same(
+                $this->expected,
+                $closure(),
+                new StringMessage($this->message)
+            )
+        );
     }
 }
